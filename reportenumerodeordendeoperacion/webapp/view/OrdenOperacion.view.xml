@@ -1,0 +1,139 @@
+<mvc:View
+    controllerName="co.com.concreto.reportenumerodeordendeoperacion.controller.OrdenOperacion"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+>
+    <Page
+        id="idPage"
+        title="{i18n>title}"
+    >
+        <f:DynamicPage id="idDynamicPage">
+            <f:title>
+                <f:DynamicPageTitle id="idDynamicPageTitle">
+                    <f:heading>
+                        <VariantManagement
+                            id="idVariantManagement"
+                            select="onSelect"
+                            save="onSave"
+                            manage="onManage"
+                            selectedKey="Standard"
+                            defaultKey="Standard"
+                            showFooter="true"
+                            popoverTitle="my Favorites"
+                        >
+                            <items>
+                                <VariantItem
+                                    id="idVariantItem"
+                                    key="Standard"
+                                    title="Entry1"
+                                    author="B"
+                                    favorite="true"
+                                    visible="true"
+                                    executeOnSelect="false"
+                                    rename="false"
+                                    changeable="false"
+                                    remove="false"
+                                    sharing="Public"
+                                />
+                            </items>
+                        </VariantManagement>
+                    </f:heading>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:header>
+                <f:DynamicPageHeader id="idDynamicPageHeader">
+                    <HBox
+                        id="idHBoxFiltersHBox"
+                        wrap="Wrap"
+                        alignItems="Center"
+                        class="sapUiSmallMargin"
+                    >
+                        <VBox
+                            id="idAcreedorVBox"
+                            class="sapUiTinyMarginEnd"
+                        >
+                            <Label
+                                id="idAcreedorLabel"
+                                text="Acreedor"
+                                labelFor="acreedorFilter"
+                            />
+                            <Input
+                                id="idAcreedorFilterInput"
+                                placeholder="Acreedor"
+                                width="200px"
+                                showValueHelp="true"
+                                valueHelpRequest="onInputValueHelpRequest"
+                            />
+                        </VBox>
+                        <VBox
+                            id="idButtonVBox"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginTop"
+
+                        >
+                            <Button id="idIrButton" text="Ir" press="onIrButtonPress"/>
+                        </VBox>
+                    </HBox>
+                </f:DynamicPageHeader>
+            </f:header>
+            <f:content>
+                <Table
+                    id="idRowsTable"
+                    items="{view>/rows}"
+                    busy="{view>/busy}"
+                    growing="true"
+                    growingScrollToLoad="true"
+                >
+                    <columns>
+                        <Column id="idPosicionAsientoContableColumn">
+                            <Text
+                                id="idPosicionAsientoContableText"
+                                text="Posicion Asiento Contable"
+                            />
+                        </Column>
+                        <Column id="idNumeroDocumentoColumn">
+                            <Text
+                                id="idNumeroDocumentoText"
+                                text="Numero Documento"
+                            />
+                        </Column>
+                        <Column id="idAcreedorColumn">
+                            <Text
+                                id="idAcreedorText"
+                                text="Acreedor"
+                            />
+                        </Column>
+                        <Column id="idNumeroFacturaColumn">
+                            <Text
+                                id="idNumeroFacturaText"
+                                text="Numero Factura"
+                            />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="idColumnListItem">
+                            <cells>
+                                <Text
+                                    text="{view>PosicionAsientoContable}"
+                                    id="idPosicionAsientoContableVText"
+                                />
+                                <Text
+                                    text="{view>NumeroDocumento}"
+                                    id="idNumeroDocumentoCText"
+                                />
+                                <Text
+                                    text="{view>Acreedor}"
+                                    id="idAcreedorCText"
+                                />
+                                <Text
+                                    text="{view>NumeroFactura}"
+                                    id="idNumeroFacturaCText"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </f:content>
+        </f:DynamicPage>
+    </Page>
+</mvc:View>

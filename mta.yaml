@@ -1,0 +1,93 @@
+_schema-version: "3.2"
+ID: ReporteNumeroOrdendeOperacion
+version: 0.0.1
+modules:
+- name: ReporteNumeroOrdendeOperacion-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: ReporteNumeroOrdendeOperacion-destination-service
+    parameters:
+      content-target: true
+  - name: ReporteNumeroOrdendeOperacion_html_repo_host
+    parameters:
+      service-key:
+        name: ReporteNumeroOrdendeOperacion_html_repo_host-key
+  - name: uaa_ReporteNumeroOrdendeOperacion
+    parameters:
+      service-key:
+        name: uaa_ReporteNumeroOrdendeOperacion-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: ReporteNumeroOrdendeOperacion_ReporteNumeroOrdendeOperacion_html_repo_host
+          ServiceInstanceName: ReporteNumeroOrdendeOperacion-html5-app-host-service
+          ServiceKeyName: ReporteNumeroOrdendeOperacion_html_repo_host-key
+          sap.cloud.service: ReporteNumeroOrdendeOperacion
+        - Authentication: OAuth2UserTokenExchange
+          Name: ReporteNumeroOrdendeOperacion_uaa_ReporteNumeroOrdendeOperacion
+          ServiceInstanceName: ReporteNumeroOrdendeOperacion-xsuaa-service
+          ServiceKeyName: uaa_ReporteNumeroOrdendeOperacion-key
+          sap.cloud.service: ReporteNumeroOrdendeOperacion
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: ReporteNumeroOrdendeOperacion-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: ReporteNumeroOrdendeOperacion_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - cocomconcretoreportenumerodeordendeoperacion.zip
+      name: cocomconcretoreportenumerodeordendeoperacion
+      target-path: resources/
+- name: cocomconcretoreportenumerodeordendeoperacion
+  type: html5
+  path: reportenumerodeordendeoperacion
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: ReporteNumeroOrdendeOperacion-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: ReporteNumeroOrdendeOperacion-destination-service
+    service-plan: lite
+- name: ReporteNumeroOrdendeOperacion_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: ReporteNumeroOrdendeOperacion-html5-app-host-service
+    service-plan: app-host
+- name: uaa_ReporteNumeroOrdendeOperacion
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: ReporteNumeroOrdendeOperacion-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true

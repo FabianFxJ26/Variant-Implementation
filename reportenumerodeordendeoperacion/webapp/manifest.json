@@ -1,0 +1,131 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "co.com.concreto.reportenumerodeordendeoperacion",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.0",
+      "toolsId": "ec3d4ce4-4fa8-4682-bc18-a6fa5bc31798"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/YY1_REPORTORDOPOXA_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "reportenumerodeordenoperacion-display": {
+          "semanticObject": "reportenumerodeordenoperacion",
+          "action": "display",
+          "title": "{{reportenumerodeordenoperacion-display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.130.11",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "co.com.concreto.reportenumerodeordendeoperacion.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "co.com.concreto.reportenumerodeordendeoperacion.view",
+        "async": true,
+        "viewPath": "co.com.concreto.reportenumerodeordendeoperacion.view"
+      },
+      "routes": [
+        {
+          "name": "RouteOrdenOperacion",
+          "pattern": ":?query:",
+          "target": [
+            "TargetOrdenOperacion"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetOrdenOperacion": {
+          "id": "OrdenOperacion",
+          "name": "OrdenOperacion"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "co.com.concreto.reportenumerodeordendeoperacion.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ReporteNumeroOrdendeOperacion"
+  }
+}
