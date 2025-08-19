@@ -26,14 +26,12 @@
                                 <VariantItem
                                     id="idVariantItem"
                                     key="Standard"
-                                    title="Entry1"
-                                    author="B"
+                                    title="Standard"
+                                    author="SAP"
                                     favorite="true"
                                     visible="true"
                                     executeOnSelect="false"
-                                    rename="false"
-                                    changeable="false"
-                                    remove="false"
+                                    rename="false"                        
                                     sharing="Public"
                                 />
                             </items>
@@ -69,9 +67,12 @@
                         <VBox
                             id="idButtonVBox"
                             class="sapUiTinyMarginEnd sapUiTinyMarginTop"
-
                         >
-                            <Button id="idIrButton" text="Ir" press="onIrButtonPress"/>
+                            <Button
+                                id="idIrButton"
+                                text="Ir"
+                                press="onIrButtonPress"
+                            />
                         </VBox>
                     </HBox>
                 </f:DynamicPageHeader>
